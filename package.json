@@ -1,0 +1,17 @@
+{
+  "name": "@signal24/devtool-otel",
+  "version": "0.0.3",
+  "description": "One-liner to start/stop local OpenTelemetry tools for development",
+  "main": "cli.mjs",
+  "bin": {
+    "@signal24/devtool-otel": "cli.mjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Signal24 <devops@sgnl24.com>",
+  "license": "MIT",
+  "dependencies": {
+    "which": "^4.0.0"
+  }
+}
