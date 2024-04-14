@@ -9,6 +9,14 @@ services:
       - "3201:3200" # tempo api
       - "3202:4318" # otlp http
 
+  mimir:
+    image: grafana/mimir:latest
+    command: ["-config.file=/etc/mimir.yaml"]
+    volumes:
+      - ./mimir.yaml:/etc/mimir.yaml
+    ports:
+      - "3203:9009" # mimir api
+
   grafana:
     image: grafana/grafana:10.2.2
     volumes:

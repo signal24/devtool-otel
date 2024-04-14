@@ -26,7 +26,7 @@ async function up() {
   await execSync(`${composeCmd} up -d`, { cwd: __dirname + "/resources" });
 
   console.log(
-    `\n@signal24/dk-server-foundation setup:\nexport OTLP_ENDPOINT=http://localhost:3202/v1/traces\n\nYou can now access Grafana at:\nhttp://localhost:3200/explore\n`
+    `\nOpenTelemetry setup:\nexport OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:3202/v1/traces\nexport OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://localhost:3203/otlp/v1/metrics\n\nYou can now access Grafana at:\nhttp://localhost:3200/explore\n`
   );
 }
 

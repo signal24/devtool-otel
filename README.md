@@ -1,4 +1,4 @@
-Quick launch tool to launch a local Grafana Tempo environment for use in local development.
+Quick launch tool to launch a local Grafana LGTM environment for use in local development.
 
 Startup: `npx @signal24/devtool-otel`\
 Shutdown: `npx @signal24/devtool-otel down`
