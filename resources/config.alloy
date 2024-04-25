@@ -1,0 +1,56 @@
+// OTLP Receivers
+otelcol.receiver.otlp "receiver" {
+  debug_metrics {
+    disable_high_cardinality_metrics = true
+  }
+
+  grpc {
+    endpoint = "0.0.0.0:4317"
+  }
+
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    metrics = [otelcol.exporter.prometheus.metrics_converter.input]
+    traces = [otelcol.exporter.otlp.traces_service.input]
+  }
+}
+
+otelcol.exporter.prometheus "metrics_converter" {
+  forward_to = [prometheus.remote_write.metrics_service.receiver]
+}
+
+// Metrics Service
+prometheus.remote_write "metrics_service" {
+  endpoint {
+    url = "http://mimir:9009/api/v1/push"
+    send_native_histograms = false
+  }
+
+  wal {
+    truncate_frequency = "2h"
+    min_keepalive_time = "5m"
+    max_keepalive_time = "8h"
+  }
+
+  external_labels = {
+  }
+}
+
+// Tempo
+otelcol.exporter.otlp "traces_service" {
+  client {
+    endpoint = "tempo:4317"
+
+    tls {
+      insecure = true
+    }
+  }
+}
+
+logging {
+  level  = "info"
+  format = "logfmt"
+}

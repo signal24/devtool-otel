@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const oldCompose = await which("docker-compose", { nothrow: true });
 const composeCmd = oldCompose ? "docker-compose" : "docker compose";
 
-const cmd = process.argv[3] ?? "up";
+const cmd = process.argv[2] ?? "up";
 
 if (cmd === "up") {
   await up();
@@ -23,13 +23,19 @@ if (cmd === "up") {
 }
 
 async function up() {
-  await execSync(`${composeCmd} up -d`, { cwd: __dirname + "/resources" });
+  await execSync(`${composeCmd} up -d`, {
+    cwd: __dirname + "/resources",
+    stdio: "inherit",
+  });
 
   console.log(
-    `\nOpenTelemetry setup:\nexport OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:3202/v1/traces\nexport OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://localhost:3203/otlp/v1/metrics\n\nYou can now access Grafana at:\nhttp://localhost:3200/explore\n`
+    `\nOpenTelemetry setup:\nexport OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318\n\nYou can now access Grafana at:\nhttp://localhost:3200/explore\n`
   );
 }
 
 async function down() {
-  await execSync(`${composeCmd} down`, { cwd: __dirname + "/resources" });
+  await execSync(`${composeCmd} down`, {
+    cwd: __dirname + "/resources",
+    stdio: "inherit",
+  });
 }

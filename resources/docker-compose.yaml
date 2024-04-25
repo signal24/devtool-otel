@@ -1,21 +1,24 @@
-version: "3"
 services:
   tempo:
     image: grafana/tempo:latest
     command: ["-config.file=/etc/tempo.yaml"]
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml
-    ports:
-      - "3201:3200" # tempo api
-      - "3202:4318" # otlp http
 
   mimir:
     image: grafana/mimir:latest
     command: ["-config.file=/etc/mimir.yaml"]
     volumes:
       - ./mimir.yaml:/etc/mimir.yaml
+
+  alloy:
+    image: grafana/alloy:latest
+    command: ["run", "/etc/alloy/config.alloy"]
+    volumes:
+      - ./config.alloy:/etc/alloy/config.alloy
     ports:
-      - "3203:9009" # mimir api
+      - "4317:4317"
+      - "4318:4318"
 
   grafana:
     image: grafana/grafana:10.2.2

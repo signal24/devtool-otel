@@ -4,6 +4,6 @@ Startup: `npx @signal24/devtool-otel`\
 Shutdown: `npx @signal24/devtool-otel down`
 
 Exposes:
-- Grafana trace search at http://localhost:3200/explore
-- Tempo API at http://localhost:3201
-- HTTP OTLP trace collector at http://localhost:3202/v1/traces
+- Grafana at http://localhost:3200/explore
+- gRPC OpenTelemetry collector at http://localhost:4317
+- HTTP OpenTelemetry collector at http://localhost:4318
