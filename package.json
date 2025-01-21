@@ -1,6 +1,6 @@
 {
   "name": "@signal24/devtool-otel",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "One-liner to start/stop local OpenTelemetry tools for development",
   "main": "cli.mjs",
   "bin": {
